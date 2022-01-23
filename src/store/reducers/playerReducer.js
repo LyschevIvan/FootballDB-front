@@ -1,10 +1,12 @@
 import {GET_PLAYERS} from "../types";
 
+
+
 const initState = {
     players : []
 }
 
-export default function (state = initState, action){
+export function playerReducer(state = initState, action){
     switch (action.type){
         case GET_PLAYERS:
             return {
