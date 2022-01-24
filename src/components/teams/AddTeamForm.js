@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getPlayersToAdd} from "../../store/actions/getPlayers";
 import axios from "axios";
+import {getTeams} from "../../store/actions/getTeams";
 
 
 const AddTeamForm = (props) =>{
@@ -59,11 +60,7 @@ const AddTeamForm = (props) =>{
 
     const submit = (event) =>{
         event.preventDefault()
-        // let postTeam = JSON.stringify({
-        //     "clubName": club.toString(),
-        //     "captains": captain.toString()
-        // })
-        // axios.post("http://localhost:8080/teams", postTeam)
+
         axios({
             method: "post",
             url: "http://localhost:8080/teams",
@@ -80,19 +77,15 @@ const AddTeamForm = (props) =>{
                         teamMainPlayerDtos: main.map(r =>({
                             playerId: r.toString()
                         }
-
                         ))
-                    }
-                }).then(err => console.log(err))
+                    }             }).then(res => {
+                    props.getTeams()
+                    setClub("")
+                }).catch(err => console.log(err))
             }
 
-        ).then(err => console.log(err))
-        // let postMain = JSON.stringify({
-        //     "teamMainPlayerDtos": main.map(r => ({
-        //         "playerId": r.toString()
-        //     }))
-        // })
-        // axios.post("http://localhost:8080/teamsMain", postMain)
+        ).catch(err => console.log(err))
+
     }
 
     useEffect(() => {
@@ -268,7 +261,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        getPlayersToAdd: (club) => dispatch(getPlayersToAdd(club))
+        getPlayersToAdd: (club) => dispatch(getPlayersToAdd(club)),
+        getTeams: () => dispatch(getTeams())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddTeamForm)
