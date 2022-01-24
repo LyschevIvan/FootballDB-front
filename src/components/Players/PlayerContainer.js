@@ -3,7 +3,6 @@ import PlayersTable from "./PlayersTable";
 import {setFilter} from "../../store/reducers/playerReducer";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {connect} from "react-redux";
-import {getPlayers} from "../../store/actions/getPlayers";
 
 class PlayerContainer extends Component{
 

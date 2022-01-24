@@ -59,17 +59,40 @@ const AddTeamForm = (props) =>{
 
     const submit = (event) =>{
         event.preventDefault()
-        let postTeam = JSON.stringify({
-            clubName: club,
-            captains: captain
-        })
-        axios.post("http://localhost/teams", postTeam)
-        let postMain = JSON.stringify({
-            teamMainPlayerDtos: main.map(r => ({
-                playerId: r
-            }))
-        })
-        axios.post("http://localhost:8080/teamsMain")
+        // let postTeam = JSON.stringify({
+        //     "clubName": club.toString(),
+        //     "captains": captain.toString()
+        // })
+        // axios.post("http://localhost:8080/teams", postTeam)
+        axios({
+            method: "post",
+            url: "http://localhost:8080/teams",
+            data:{
+                clubName: club.toString(),
+                captain: captain.toString()
+            }
+        }).then( res => {
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/teamsMain",
+                    data:{
+                        teamId: res.data.toString(),
+                        teamMainPlayerDtos: main.map(r =>({
+                            playerId: r.toString()
+                        }
+
+                        ))
+                    }
+                }).then(err => console.log(err))
+            }
+
+        ).then(err => console.log(err))
+        // let postMain = JSON.stringify({
+        //     "teamMainPlayerDtos": main.map(r => ({
+        //         "playerId": r.toString()
+        //     }))
+        // })
+        // axios.post("http://localhost:8080/teamsMain", postMain)
     }
 
     useEffect(() => {

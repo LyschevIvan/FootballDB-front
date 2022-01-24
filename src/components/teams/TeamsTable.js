@@ -35,7 +35,7 @@ class TeamsTable extends Component{
                                 <TableRow key={i}>
                                     <TableCell>{row.id}</TableCell>
                                     <TableCell>{row.clubName}</TableCell>
-                                    <TableCell>{this.props.captains_loaded === true && this.props.captains[i].playerName}</TableCell>
+                                    <TableCell>{this.props.captains[i] !== undefined && this.props.captains[i].playerName}</TableCell>
                                     <TableCell>100</TableCell>
                                 </TableRow>
                             ))
