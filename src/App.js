@@ -6,6 +6,8 @@ import {setPage} from "./store/actions/setPage";
 import {connect} from "react-redux";
 import {useEffect} from "react";
 import TeamsTable from "./components/teams/TeamsTable";
+import PlayerContainer from "./components/Players/PlayerContainer";
+import {TeamPageContainer} from "./components/teams/TeamPageContainer";
 
 function App(props) {
     useEffect(()=>{
@@ -26,8 +28,9 @@ function App(props) {
 
         {/*{props.page === 0 && <TestTable/>}*/}
         {props.page === 0 && <ClubsTable/>}
-        {props.page === 1 && <TeamsTable/>}
-    </div>
+        {props.page === 1 && <TeamPageContainer/>}
+        {props.page === 2 && <PlayerContainer/>}
+        </div>
   );
 }
 const mapStateToProps = (state) => {
