@@ -1,10 +1,11 @@
-import {GET_CAPTAINS, GET_TEAMS} from "../types";
+import {GET_CAPTAINS, GET_STATS, GET_TEAMS} from "../types";
 
 const initState = {
     teams: [],
     teams_loaded : false,
     captains: [],
-    captains_loaded: false
+    captains_loaded: false,
+    stats: []
 }
 
 export const teamsReducer = (state = initState, action) => {
@@ -13,7 +14,10 @@ export const teamsReducer = (state = initState, action) => {
             return {
                 teams: action.payload,
                 teams_loaded: true,
-                captains: []
+                captains_loaded: false,
+                captains: [],
+                stats: []
+
             }
 
 
@@ -21,6 +25,10 @@ export const teamsReducer = (state = initState, action) => {
             return Object.assign({}, state,{
                 captains: [...state.captains, action.payload],
                 captains_loaded: true
+            })
+        case GET_STATS:
+            return Object.assign({}, state, {
+                stats: [...state.stats, action.payload]
             })
         default: return state
     }

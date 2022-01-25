@@ -1,7 +1,8 @@
 import {
+    Box,
     Button,
     Checkbox,
-    FormControl,
+    FormControl, IconButton,
     InputLabel,
     MenuItem,
     Select,
@@ -15,6 +16,7 @@ import {connect} from "react-redux";
 import {getPlayersToAdd} from "../../store/actions/getPlayers";
 import axios from "axios";
 import {getTeams} from "../../store/actions/getTeams";
+import {ArrowBack} from "@mui/icons-material";
 
 
 const AddTeamForm = (props) =>{
@@ -81,6 +83,7 @@ const AddTeamForm = (props) =>{
                     }             }).then(res => {
                     props.getTeams()
                     setClub("")
+                    props.setAdd(false)
                 }).catch(err => console.log(err))
             }
 
@@ -102,12 +105,19 @@ const AddTeamForm = (props) =>{
     }, [captain])
 
     return(
-        <form onSubmit={submit}>
-            <FormControl fullWidth>
+        <form onSubmit={submit} >
+
+
+            <Box>
+                <IconButton onClick={() => props.setAdd(false)}>
+                    <ArrowBack/>
+                </IconButton>
+            </Box>
+            <FormControl fullWidth margin={'normal'} sx={{width:"51%"}}>
                 <InputLabel id={"select-club-label"}>Choose Club</InputLabel>
                 <Select
                     value={club}
-                    label={""}
+                    label={"Choose Club"}
                     labelId={"select-club-label"}
 
                 onChange={onClubChange}>
@@ -120,11 +130,11 @@ const AddTeamForm = (props) =>{
             </FormControl>
             {
                 club!=="" &&
-                <FormControl fullWidth>
+                <FormControl fullWidth margin={'normal'} sx={{width:"51%"}} >
                     <InputLabel id={"select-team-captain"}>Choose Captain</InputLabel>
                     <Select
                         value={captain}
-                        label={""}
+                        label={"Choose Captain"}
                         labelId={"select-team-captain"}
                         onChange={onCaptainChange}>
 

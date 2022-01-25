@@ -1,22 +1,30 @@
-import {Component} from "react";
-import {IconButton} from "@mui/material";
+import {Container, IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import TeamsTable from "./TeamsTable";
 import AddTeamForm from "./AddTeamForm";
+import {useState} from "react";
 
-export class TeamPageContainer extends Component{
+export const TeamPageContainer = () => {
+    const [add, setAdd] = useState(false)
+    return (
+        <div>
+            <Container>
+                {   !add &&
+                    <>
+                        <TeamsTable/>
+                        <IconButton onClick={() => setAdd(true)}>
+                            <AddIcon/>
+                        </IconButton>
+                    </>
 
+                }
+                {
+                    add && <AddTeamForm setAdd={(v)=>setAdd(v)}/>
+                }
 
+            </Container>
 
-    render() {
-        return (
-            <div>
-                <TeamsTable/>
-                <IconButton>
-                    <AddIcon/>
-                </IconButton>
-                <AddTeamForm/>
-            </div>
-        );
-    }
+        </div>
+    );
+
 }

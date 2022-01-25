@@ -6,19 +6,32 @@ import {connect} from "react-redux";
 
 class PlayerContainer extends Component{
 
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            club: ""
+        }
+    }
+
     onFilterChange = (event) => {
         console.log(event.target.value)
+        this.setState({
+            club: event.target.value
+        })
         this.props.setFilter(event.target.value)
     }
+
+
 
     render() {
         return(
             <>
-                <FormControl fullWidth>
+                <FormControl fullWidth margin={'normal'} sx={{width:"51%"}}>
                     <InputLabel id={"select-label"}>Choose Club</InputLabel>
                     <Select onChange={this.onFilterChange}
-                            value={this.props.clubs}
-                            label={""}
+                            value={this.state.club}
+                            label={"Choose Club"}
                             labelId={"select-label"} >
                         {this.props.clubs.map((row,i) => (
                             <MenuItem key={i} value={row.name}>{row.name}</MenuItem>

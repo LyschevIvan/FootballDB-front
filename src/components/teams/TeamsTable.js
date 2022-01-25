@@ -3,6 +3,7 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "
 import {connect} from "react-redux";
 import {getTeams} from "../../store/actions/getTeams";
 import {getCaptains} from "../../store/actions/getCaptains";
+import {getStats} from "../../store/actions/getStats";
 
 
 
@@ -14,11 +15,13 @@ class TeamsTable extends Component{
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.teams_loaded === false && prevProps.teams_loaded !== this.props.teams_loaded){
             this.props.getCaptains()
+            this.props.getStats()
         }
     }
 
     render() {
         return(
+
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -36,7 +39,7 @@ class TeamsTable extends Component{
                                     <TableCell>{row.id}</TableCell>
                                     <TableCell>{row.clubName}</TableCell>
                                     <TableCell>{this.props.captains[i] !== undefined && this.props.captains[i].playerName}</TableCell>
-                                    <TableCell>100</TableCell>
+                                    <TableCell>{this.props.stats[i] !== undefined && this.props.stats[i]}</TableCell>
                                 </TableRow>
                             ))
                         }
@@ -53,14 +56,16 @@ const mapStateToProps = (state) => {
         teams: state.teams.teams,
         captains: state.teams.captains,
         teams_loaded: state.teams.teams_loaded,
-        captains_loaded: state.teams.captains_loaded
+        captains_loaded: state.teams.captains_loaded,
+        stats: state.teams.stats
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
         getTeams: () => dispatch(getTeams()),
-        getCaptains: () => dispatch(getCaptains())
+        getCaptains: () => dispatch(getCaptains()),
+        getStats: () => dispatch(getStats())
     }
 }
 
